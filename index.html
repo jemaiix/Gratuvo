@@ -94,6 +94,16 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-m
 @media(max-width:430px){.sharebtn span{display:none}.sharebtn{padding:9px 11px}}
 .alert.strong{background:color-mix(in srgb,#ef4444 14%,var(--card));border-color:color-mix(in srgb,#ef4444 60%,transparent)}
 #rudeNote{margin:10px 0 0}
+.install{margin-bottom:14px}.irow{display:flex;align-items:center;gap:12px}.irow svg{flex:none;width:40px;height:40px}.irow b{display:block}.irow p{margin:2px 0 0}.irow>div{flex:1;min-width:0}
+.ibtn{flex:none;border:0;background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:700;border-radius:12px;padding:10px 14px;min-height:42px;cursor:pointer}
+.ix{flex:none;background:transparent;border:0;color:var(--mute);font-size:1.5rem;line-height:1;cursor:pointer;padding:6px}
+.combo{position:relative;flex:1;min-width:0}.combo input{width:100%}
+main>section.card:first-of-type{position:relative;z-index:5}
+.dlist{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:30;margin:0;padding:6px;list-style:none;max-height:280px;overflow:auto;background:var(--bg);border:1.5px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.dlist li{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:600}
+.dlist li.on,.dlist li:hover{background:var(--soft);color:var(--accent)}
+.dlist li.empty{color:var(--mute);cursor:default;font-weight:500}.dlist li.empty:hover{background:transparent;color:var(--mute)}
+.dlist .fl{font-size:1.35rem;line-height:1}
 .destrow{display:flex;gap:8px}.destrow input{flex:1;min-width:0}
 .locbtn{flex:none;width:50px;min-height:46px;border-radius:14px;border:0;background:var(--accent);color:var(--accent-ink);cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 16px -8px color-mix(in srgb,var(--accent) 80%,transparent)}
 .locbtn:active{transform:scale(.94)}
@@ -107,11 +117,15 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-m
   <div class="langwrap"><button type="button" class="langbtn" id="langBtn" aria-label="Language" aria-haspopup="true" aria-expanded="false"><svg viewBox='0 0 24 24' width='15' height='15' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='9'/><path d='M3 12h18M12 3c3 3.2 3 14.8 0 18M12 3c-3 3.2-3 14.8 0 18'/></svg><span id="langCur">EN</span></button><div class="langmenu hide" id="langMenu" role="menu"><button type="button" role="menuitem" data-l="en">English</button><button type="button" role="menuitem" data-l="fi">Suomi</button><button type="button" role="menuitem" data-l="sv">Svenska</button></div></div>
   <button type="button" id="share" class="sharebtn" aria-label="Share this app"><svg viewBox='0 0 24 24' width='18' height='18' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><path d='M8.6 13.5l6.8 4M15.4 6.5l-6.8 4'/></svg><span id="shareTxt">Share</span></button>
 </header>
+<div class="card install hide" id="install">
+  <div class="irow"><svg viewBox='0 0 24 24' fill='none' stroke='var(--accent)' stroke-width='2' stroke-linecap='round'><rect x='4' y='3' width='16' height='18' rx='4'/><path d='M12 8v8M8 12h8'/></svg><div><b>Add to home screen</b><p class="note">Open Gratuvo like an app, straight from your phone.</p></div><button type="button" class="ibtn" id="iBtn">Add</button><button type="button" class="ix" id="iX" aria-label="Close">×</button></div>
+  <p class="note hide" id="iHelp" style="margin-top:10px"></p>
+</div>
 
 <section class="card">
   <div class="field">
     <label for="dest">Where are you staying?</label>
-    <div class="destrow"><input id="dest" list="places" placeholder="Type or choose a country" autocomplete="off"><button type="button" id="loc" class="locbtn" aria-label="Find my location" title="Find my location"><svg viewBox='0 0 24 24' width='22' height='22' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round'><circle cx='12' cy='12' r='3'/><circle cx='12' cy='12' r='8'/><path d='M12 1v3M12 20v3M1 12h3M20 12h3'/></svg></button></div>
+    <div class="destrow"><div class="combo"><input id="dest" placeholder="Type or choose a country" autocomplete="off" autocapitalize="words" spellcheck="false" role="combobox" aria-expanded="false" aria-controls="destList"><ul class="dlist hide" id="destList" role="listbox"></ul></div><button type="button" id="loc" class="locbtn" aria-label="Find my location" title="Find my location"><svg viewBox='0 0 24 24' width='22' height='22' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round'><circle cx='12' cy='12' r='3'/><circle cx='12' cy='12' r='8'/><path d='M12 1v3M12 20v3M1 12h3M20 12h3'/></svg></button></div>
     <datalist id="places"></datalist>
     <div class="alert hide" id="rudeNote" role="alert"></div>
     <p class="note" id="destNote">Choose a country for local tipping norms, or type anything and use the default rate.</p>
@@ -182,9 +196,11 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-m
 </section>
 
 <section class="card" id="fxCard">
-  <label for="rate">Exchange rate: 1 <span id="fxCur">USD</span> in EUR</label>
+  <div class="field"><label for="home">Also show amounts in</label><select id="home"></select></div>
+  <div id="fxRate">
+  <label for="rate">Exchange rate: 1 <span id="fxCur">USD</span> → <span id="fxHome">EUR</span></label>
   <input id="rate" type="number" inputmode="decimal" min="0" step="any">
-  <p class="note"><span id="asof"></span><span id="fxStatic">This page cannot fetch live rates, so check today's rate and type it in for an exact euro amount.</span></p>
+  <p class="note"><span id="asof"></span><span id="fxStatic">This page cannot fetch live rates, so check today's rate and type it in for an exact euro amount.</span></p></div>
 </section>
 </main>
 
@@ -204,9 +220,25 @@ var STRONG=['Japan','South Korea','China'],SOFT=['Finland','Iceland','Singapore'
 var W1={};W1[WS]='%s: tippaaminen ei ole tapana, ja sen voidaan katsoa olevan epäkohteliasta tai hämmentävää. Henkilökunta voi kohteliaasti kieltäytyä tai yrittää palauttaa rahat. Vilpitön kiitos on paras ele.';W1[WF]='%s: tippiä ei odoteta, koska palvelu sisältyy yleensä hintaan. Kiitos tai pyöristys ylös riittää.';
 var W2={};W2[WS]='Dricks är inte brukligt i %s och kan uppfattas som oartigt eller förvirrande. Personalen kan artigt tacka nej eller försöka ge tillbaka pengarna. Ett uppriktigt tack är den bästa gesten.';W2[WF]='Dricks förväntas inte i %s eftersom service oftast ingår i priset. Ett tack eller avrundning uppåt räcker gott.';
 Object.assign(TR.fi,W1);Object.assign(TR.sv,W2);
+Object.assign(CN.fi,{'Czechia':'Tšekki','Hungary':'Unkari','Belgium':'Belgia','Romania':'Romania','Croatia':'Kroatia','Estonia':'Viro','Latvia':'Latvia','Lithuania':'Liettua','Slovakia':'Slovakia','Slovenia':'Slovenia','Luxembourg':'Luxemburg','Malta':'Malta'});
+Object.assign(CN.sv,{'Czechia':'Tjeckien','Hungary':'Ungern','Belgium':'Belgien','Romania':'Rumänien','Croatia':'Kroatien','Estonia':'Estland','Latvia':'Lettland','Lithuania':'Litauen','Slovakia':'Slovakien','Slovenia':'Slovenien','Luxembourg':'Luxemburg','Malta':'Malta'});
+Object.assign(NOTE.fi,{'Czechia':'Pyöristys ylös tai noin 10 % on tapana pöytiintarjoilussa. Tarkista palvelumaksu.','Hungary':'Laskuun lisätään usein palvelumaksu (noin 10–12 %). Jos ei, 10–15 % odotetaan.','Belgium':'Palvelu sisältyy hintaan. Pyöristys ylös tai muutama euro riittää.','Romania':'Noin 10 % on tapana ravintoloissa. Tarkista palvelumaksu.','Croatia':'Pyöristys ylös tai noin 10 % on tapana hyvästä palvelusta.','Estonia':'Tippi on vapaaehtoinen. Noin 5–10 % hyvästä palvelusta tai pyöristä ylös.','Latvia':'Noin 10 % on tapana pöytiintarjoilussa. Tarkista palvelumaksu.','Lithuania':'Noin 10 % hyvästä palvelusta on tapana ravintoloissa.','Slovakia':'Pyöristys ylös tai noin 10 % on tapana pöytiintarjoilussa.','Slovenia':'Palvelu sisältyy, mutta pyöristys ylös tai noin 10 % arvostetaan.','Luxembourg':'Palvelu sisältyy hintaan. Pyöristys ylös tai muutama euro riittää.','Malta':'Noin 10 % on tapana hyvästä palvelusta, jos palvelumaksua ei ole lisätty.'});
+Object.assign(NOTE.sv,{'Czechia':'Avrunda uppåt eller ge cirka 10 % vid bordsservering. Kolla om serviceavgift ingår.','Hungary':'En serviceavgift (cirka 10–12 %) läggs ofta på. Annars förväntas 10–15 %.','Belgium':'Service ingår. Att avrunda uppåt eller ge några euro räcker.','Romania':'Cirka 10 % är brukligt på restauranger. Kolla om serviceavgift ingår.','Croatia':'Avrunda uppåt eller ge cirka 10 % för bra service.','Estonia':'Dricks är frivillig. Cirka 5–10 % för bra service eller avrunda uppåt.','Latvia':'Cirka 10 % är brukligt vid bordsservering. Kolla om serviceavgift ingår.','Lithuania':'Cirka 10 % för bra service är brukligt på restauranger.','Slovakia':'Avrunda uppåt eller ge cirka 10 % vid bordsservering.','Slovenia':'Service ingår, men att avrunda uppåt eller ge cirka 10 % uppskattas.','Luxembourg':'Service ingår. Att avrunda uppåt eller ge några euro räcker.','Malta':'Cirka 10 % för bra service är brukligt om ingen serviceavgift lagts till.'});
+Object.assign(TR.fi,{'Also show amounts in':'Näytä summat myös valuutassa','No match. You can still type any place.':'Ei osumia. Voit silti kirjoittaa minkä tahansa paikan.'});Object.assign(TR.sv,{'Also show amounts in':'Visa belopp även i','No match. You can still type any place.':'Inga träffar. Du kan ändå skriva vilken plats som helst.'});
+var HOME='EUR',IDX=null,ISO={'United States':'US','Canada':'CA','Mexico':'MX','United Kingdom':'GB','France':'FR','Italy':'IT','Spain':'ES','Germany':'DE','Finland':'FI','Sweden':'SE','Norway':'NO','Denmark':'DK','Switzerland':'CH','Japan':'JP','Thailand':'TH','Turkey':'TR','United Arab Emirates':'AE','Australia':'AU','Netherlands':'NL','Portugal':'PT','Greece':'GR','Austria':'AT','Ireland':'IE','Poland':'PL','Iceland':'IS','New Zealand':'NZ','South Korea':'KR','China':'CN','Singapore':'SG','India':'IN','Brazil':'BR','South Africa':'ZA','Czechia':'CZ','Hungary':'HU','Belgium':'BE','Romania':'RO','Croatia':'HR','Estonia':'EE','Latvia':'LV','Lithuania':'LT','Slovakia':'SK','Slovenia':'SI','Luxembourg':'LU','Malta':'MT'},ALIAS={'United States':['usa','us','america','united states of america','estados unidos','etats-unis','vereinigte staaten'],'United Kingdom':['uk','great britain','britain','england','scotland','wales','iso-britannia','suurbritannia','vereinigtes konigreich'],'Germany':['deutschland','alemania','allemagne'],'Spain':['espana','espagne','spanien'],'Switzerland':['suisse','svizzera','suomi sveitsi'],'Netherlands':['holland','nederland','the netherlands'],'Austria':['osterreich','oesterreich','autriche'],'Czechia':['czech republic','czech','cesko','ceska republika','tsekin tasavalta'],'Hungary':['magyarorszag'],'Poland':['polska','pologne'],'Greece':['hellas','ellada','grece'],'Ireland':['eire'],'Finland':['suomi','finlande'],'Japan':['nippon','japon'],'South Korea':['korea','republic of korea','south-korea'],'China':['prc','chine'],'United Arab Emirates':['uae','dubai','abu dhabi','emirates'],'Turkey':['turkiye','turkei','turquie'],'India':['bharat','inde'],'Brazil':['brasil','bresil'],'South Africa':['south-africa'],'New Zealand':['nz'],'Italy':['italie'],'France':['frankreich'],'Belgium':['belgique','belgie'],'Denmark':['danmark','danemark'],'Norway':['norge','norvege'],'Sweden':['sverige','suede'],'Croatia':['hrvatska'],'Estonia':['eesti'],'Latvia':['latvija'],'Lithuania':['lietuva'],'Slovakia':['slovensko'],'Slovenia':['slovenija'],'Luxembourg':['luxemburg','letzebuerg'],'Mexico':['mexiko','mejico']};
 function tr(s){return (L!=='en'&&TR[L][s])||s}
 function cname(k){return L==='en'?k:CN[L][k]}
-function ekey(v){v=(v||'').trim();if(DEST[v])return v;var l=v.toLowerCase(),r=v;Object.keys(DEST).forEach(function(k){if(cname(k).toLowerCase()===l)r=k});return r}
+function norm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim()}
+function names(k){return [k,CN.fi[k],CN.sv[k]].concat(ALIAS[k]||[]).map(norm)}
+function buildIdx(){IDX={};Object.keys(DEST).forEach(function(k){names(k).forEach(function(n){if(n)IDX[n]=k})});return IDX}
+function ekey(v){v=(v||'').trim();if(DEST[v])return v;return (IDX||buildIdx())[norm(v)]||v}
+function flag(k){var c=ISO[k];return c?String.fromCodePoint.apply(null,c.split('').map(function(ch){return 127397+ch.charCodeAt(0)})):'🌍'}
+function suggest(q){var n=norm(q),out=[];Object.keys(DEST).forEach(function(k){var sc=-1;names(k).forEach(function(x){if(!n)sc=Math.max(sc,0);else if(x.indexOf(n)===0)sc=Math.max(sc,2);else if(x.indexOf(n)>=0)sc=Math.max(sc,1)});if(sc>=0)out.push([sc,cname(k),k])});out.sort(function(a,b){return b[0]-a[0]||a[1].localeCompare(b[1],LOC[L])});return out.map(function(x){return x[2]})}
+var sel=-1,listKeys=[];
+function markSel(){[].forEach.call($('destList').children,function(li,i){li.classList.toggle('on',i===sel);if(i===sel&&li.scrollIntoView)li.scrollIntoView({block:'nearest'})})}
+function showList(){var ul=$('destList');listKeys=suggest($('dest').value);sel=-1;ul.innerHTML='';if(!listKeys.length){var e=document.createElement('li');e.className='empty';e.textContent=tr('No match. You can still type any place.');ul.appendChild(e)}else listKeys.forEach(function(k){var li=document.createElement('li');li.setAttribute('role','option');li.dataset.k=k;li.innerHTML='<span class="fl">'+flag(k)+'</span><span></span>';li.lastChild.textContent=cname(k);ul.appendChild(li)});ul.classList.remove('hide');$('dest').setAttribute('aria-expanded','true')}
+function hideList(){$('destList').classList.add('hide');$('dest').setAttribute('aria-expanded','false')}
+function pick(k){$('dest').value=cname(k);hideList();onDest()}
 function noteTxt(){var k=ekey($('dest').value),d=DEST[k];return d?((NOTE[L]&&NOTE[L][k])||d[2]):($('dest').value.trim()?tr(DEF[2]):tr(`Choose a country for local tipping norms, or type anything and use the default rate.`))}
 function applyLang(){document.documentElement.lang=L;var w=document.createTreeWalker(document.querySelector('main'),NodeFilter.SHOW_TEXT),n,a=[];while(n=w.nextNode())a.push(n);a.forEach(function(n){if(n._o===undefined)n._o=n.nodeValue;var k=n._o.trim();if(k)n.nodeValue=n._o.replace(k,tr(k))});[].forEach.call(document.querySelectorAll('[placeholder],[aria-label],[title]'),function(e){e._a=e._a||{};['placeholder','aria-label','title'].forEach(function(x){if(e.hasAttribute(x)){if(e._a[x]===undefined)e._a[x]=e.getAttribute(x);e.setAttribute(x,tr(e._a[x]))}})});$('places').innerHTML='';Object.keys(DEST).forEach(function(k){var o=document.createElement('option');o.value=cname(k);$('places').appendChild(o)})}
 function setLang(l){var key=ekey($('dest').value);L=l;try{localStorage.setItem('gv-lang',l)}catch(e){}$('langCur').textContent=l.toUpperCase();[].forEach.call($('langMenu').children,function(x){x.setAttribute('aria-current',x.dataset.l===l)});applyLang();if(DEST[key])$('dest').value=cname(key);$('destNote').textContent=noteTxt();svcUi();calc()}
@@ -242,11 +274,23 @@ var DEST={
 'Singapore':[[0,0,5],[0,0,0],'A 10% service charge plus GST is usually already on the bill, so no extra tip is needed.','SGD'],
 'India':[[5,10,15],[5,10,10],'About 10% is common if no service charge is on the bill. Small cash tips for hotel staff are appreciated.','INR'],
 'Brazil':[[0,10,15],[0,5,10],'A 10% service charge is usually on the bill. Pay it, and add a little extra only for exceptional service.','BRL'],
-'South Africa':[[10,12,15],[10,10,15],'10–15% is expected in restaurants, as servers rely on tips. Give small coins to car guards and petrol attendants.','ZAR']
+'South Africa':[[10,12,15],[10,10,15],'10–15% is expected in restaurants, as servers rely on tips. Give small coins to car guards and petrol attendants.','ZAR'],
+'Czechia':[[5,10,15],[0,5,10],'Rounding up or about 10% is customary for table service. Check for a service charge.','CZK'],
+'Hungary':[[10,10,15],[0,5,10],'A service charge (about 10–12%) is often added. If not, 10–15% is expected.','HUF'],
+'Belgium':[[0,5,10],[0,0,5],'Service is included. Rounding up or a few euros is plenty.','EUR'],
+'Romania':[[5,10,15],[0,5,10],'About 10% is customary in restaurants. Check for a service charge.','RON'],
+'Croatia':[[5,10,15],[0,5,10],'Rounding up or about 10% is customary for good service.','EUR'],
+'Estonia':[[0,5,10],[0,0,5],'Tipping is optional. About 5–10% for good service, or round up.','EUR'],
+'Latvia':[[5,10,15],[0,5,10],'About 10% is customary for table service. Check for a service charge.','EUR'],
+'Lithuania':[[5,10,15],[0,5,10],'About 10% for good service is customary in restaurants.','EUR'],
+'Slovakia':[[5,10,15],[0,5,10],'Rounding up or about 10% is customary for table service.','EUR'],
+'Slovenia':[[5,10,15],[0,5,10],'Service is included, but rounding up or leaving about 10% is appreciated.','EUR'],
+'Luxembourg':[[0,5,10],[0,0,5],'Service is included. Rounding up or a few euros is plenty.','EUR'],
+'Malta':[[5,10,15],[0,5,10],'About 10% for good service is customary if no service charge is added.','EUR']
 };
 var DEF=[[5,10,15],[5,10,15],"No local data for this place, so a general 5–15% range is used. Adjust it as needed."];
 // EUR per 1 unit, as-of date (ECB reference rates; USD and AED checked 13 Oct 2026)
-var FX={EUR:[1,""],USD:[0.892,"13 Oct 2026"],AED:[0.2429,"13 Oct 2026"],GBP:[1.1507,"16 Feb 2026"],CAD:[0.619,"16 Feb 2026"],AUD:[0.5977,"16 Feb 2026"],CHF:[1.0954,"16 Feb 2026"],SEK:[0.0942,"16 Feb 2026"],NOK:[0.0888,"16 Feb 2026"],DKK:[0.1339,"16 Feb 2026"],JPY:[0.0055,"16 Feb 2026"],THB:[0.02713,"16 Feb 2026"],MXN:[0.04917,"16 Feb 2026"],TRY:[0.0193,"16 Feb 2026"],PLN:[0.2375,"16 Feb 2026"],ISK:[0.0069,"16 Feb 2026"],NZD:[0.5096,"16 Feb 2026"],KRW:[0.000585,"16 Feb 2026"],CNY:[0.1221,"16 Feb 2026"],SGD:[0.6684,"16 Feb 2026"],INR:[0.0093,"16 Feb 2026"],BRL:[0.1615,"16 Feb 2026"],ZAR:[0.0529,"16 Feb 2026"]};
+var FX={EUR:[1,""],USD:[0.892,"13 Oct 2026"],AED:[0.2429,"13 Oct 2026"],GBP:[1.1507,"16 Feb 2026"],CAD:[0.619,"16 Feb 2026"],AUD:[0.5977,"16 Feb 2026"],CHF:[1.0954,"16 Feb 2026"],SEK:[0.0942,"16 Feb 2026"],NOK:[0.0888,"16 Feb 2026"],DKK:[0.1339,"16 Feb 2026"],JPY:[0.0055,"16 Feb 2026"],THB:[0.02713,"16 Feb 2026"],MXN:[0.04917,"16 Feb 2026"],TRY:[0.0193,"16 Feb 2026"],PLN:[0.2375,"16 Feb 2026"],ISK:[0.0069,"16 Feb 2026"],NZD:[0.5096,"16 Feb 2026"],KRW:[0.000585,"16 Feb 2026"],CNY:[0.1221,"16 Feb 2026"],SGD:[0.6684,"16 Feb 2026"],INR:[0.0093,"16 Feb 2026"],BRL:[0.1615,"16 Feb 2026"],ZAR:[0.0529,"16 Feb 2026"],CZK:[0.04122,"16 Feb 2026"],HUF:[0.002652,"16 Feb 2026"],RON:[0.19626,"16 Feb 2026"]};
 var $=function(i){return document.getElementById(i)};
 var kind="food",n=1,rates={},pctTouched=false;
 Object.keys(FX).forEach(function(k){rates[k]=FX[k][0]});
@@ -272,23 +316,23 @@ function setPct(){if(!pctTouched){$("pct").value=suggestPct()}}
 function calc(){
   var c=$("cur").value,bill=parseFloat($("bill").value)||0,pct=parseFloat($("pct").value)||0;
   var tax=pre?0:(parseFloat($("tax").value)||0),base=bill+tax;
-  var tip=base*pct/100,each=tip/n,r=rates[c]||0;
+  var tip=base*pct/100,each=tip/n,r=(rates[c]||0)/(rates[HOME]||1);
   $("lBase").textContent=fmt(base,c);
   var step=STEP[c]||1,up=Math.ceil(tip/step-1e-9)*step,dn=Math.floor(tip/step+1e-9)*step,rh="";
   function rb(x){var p=Number((x/base*100).toFixed(4));return '<button type="button" class="rb" data-p="'+p+'">'+tr(x<tip?'Round down to':'Round up to')+' '+fmt(x,c)+'<br><small>'+p.toFixed(1)+'%</small></button>'}
   if(bill>0&&base>0){if(Math.abs(tip-Math.round(tip/step)*step)>step*0.01){if(dn>0)rh+=rb(dn);rh+=rb(up)}else{rh='<span class="eur">'+tr('The tip is already a round amount.')+'</span>'}}
   $("rnd").innerHTML=rh;
   var bg=big();$('bigNote').classList.toggle('hide',!bg);$('bigNote').textContent=bg?((LN[L]&&LN[L][ekey($('dest').value)])||bg[2]):'';
-  var wk=ekey($('dest').value),wl=STRONG.indexOf(wk)>=0?2:SOFT.indexOf(wk)>=0?1:0,rn=$('rudeNote');rn.classList.toggle('hide',!wl);rn.classList.toggle('strong',wl===2);rn.textContent=wl?(wl===2?'⚠ ':'')+tr(wl===2?WS:WF).replace('%s',cname(wk)):'';
+  var wk=ekey($('dest').value),wl=STRONG.indexOf(wk)>=0?2:SOFT.indexOf(wk)>=0?1:0,rn=$('rudeNote');rn.classList.toggle('hide',!wl);rn.classList.toggle('strong',wl===2);rn.textContent=wl?(wl===2?'⚠ ':'')+tr(wl===2?WS:WF).replace('%s',cname(wk)):'';if(typeof iRefresh==='function')iRefresh();
   $("tip").textContent=fmt(tip,c);$("lBill").textContent=fmt(bill,c);$("lTot").textContent=fmt(bill+tax+tip,c);
   $("each").textContent=fmt(each,c);$("n").textContent=n;$("nTxt").textContent=n;
-  var show=c!=="EUR";
-  $("tipEur").textContent=show?"≈ "+fmt(tip*r,"EUR"):"";
-  $("eachEur").textContent=show?"≈ "+fmt(each*r,"EUR")+" "+tr("each"):"";
-  $("fxCard").classList.toggle("hide",!show);
-  $("fxCur").textContent=c;$("asof").textContent=LIVE?tr("Latest ECB rate from")+" "+LIVE+". "+tr("You can type in a different rate if you prefer."):(FX[c][1]?tr("Starting rate is from")+" "+FX[c][1]+". ":"");$("fxStatic").style.display=LIVE?"none":"";
+  var show=c!==HOME;
+  $("tipEur").textContent=show?"≈ "+fmt(tip*r,HOME):"";
+  $("eachEur").textContent=show?"≈ "+fmt(each*r,HOME)+" "+tr("each"):"";
+  $("fxRate").classList.toggle("hide",!show);
+  $("fxCur").textContent=c;$("fxHome").textContent=HOME;$("asof").textContent=LIVE?tr("Latest ECB rate from")+" "+LIVE+". "+tr("You can type in a different rate if you prefer."):(FX[c][1]?tr("Starting rate is from")+" "+FX[c][1]+". ":"");$("fxStatic").style.display=LIVE?"none":"";
   var R=rng(),names=(R.length===4?["Skip","Low","Typical","High"]:["Low","Typical","High"]).map(tr),h="";
-  R.forEach(function(p,i){var t=base*p/100;h+='<button type="button" class="rg" data-p="'+p+'"><span><b>'+names[i]+'</b> '+p+'%</span><span>'+fmt(t,c)+' · '+fmt(t/n,c)+' '+tr('each')+(show?' · ≈ '+fmt(t/n*r,"EUR"):'')+'</span></button>'});
+  R.forEach(function(p,i){var t=base*p/100;h+='<button type="button" class="rg" data-p="'+p+'"><span><b>'+names[i]+'</b> '+p+'%</span><span>'+fmt(t,c)+' · '+fmt(t/n,c)+' '+tr('each')+(show?' · ≈ '+fmt(t/n*r,HOME):'')+'</span></button>'});
   $("range").innerHTML=h;
 }
 function onDest(){
@@ -297,11 +341,11 @@ function onDest(){
   if(d&&d[3]){$("cur").value=d[3];syncRate()}
   setPct();svcUi();calc();
 }
-function syncRate(){$("rate").value=rates[$("cur").value]}
+function syncRate(){var v=rates[$("cur").value]/(rates[HOME]||1);$("rate").value=Number(v.toPrecision(6))}
 
 $("dest").addEventListener("input",onDest);
 $("cur").addEventListener("change",function(){syncRate();calc()});
-var pre=true,svc="sit",STEP={JPY:100,THB:10,MXN:10,TRY:10,SEK:5,NOK:5,DKK:5,KRW:1000,INR:10,ISK:100,CNY:1};
+var pre=true,svc="sit",STEP={JPY:100,THB:10,MXN:10,TRY:10,SEK:5,NOK:5,DKK:5,KRW:1000,INR:10,ISK:100,CNY:1,HUF:100};
 $("rnd").addEventListener("click",function(e){var b=e.target.closest(".rb");if(!b)return;$("pct").value=b.dataset.p;pctTouched=true;calc()});
 Object.keys(SVC).forEach(function(k){var o=document.createElement("option");o.value=k;o.textContent=SVC[k][0];$("svc").appendChild(o)});
 $("svc").addEventListener("change",function(){svc=$("svc").value;pctTouched=false;setPct();svcUi();calc()});
@@ -312,8 +356,26 @@ if(navigator.share){navigator.share(data).catch(function(e){if(!e||e.name!=='Abo
 $('langBtn').addEventListener('click',function(e){e.stopPropagation();var o=$('langMenu').classList.toggle('hide')===false;$('langBtn').setAttribute('aria-expanded',o)});
 $('langMenu').addEventListener('click',function(e){var b=e.target.closest('button');if(b){setLang(b.dataset.l);$('langMenu').classList.add('hide');$('langBtn').setAttribute('aria-expanded',false)}});
 document.addEventListener('click',function(){$('langMenu').classList.add('hide');$('langBtn').setAttribute('aria-expanded',false)});
+$('dest').addEventListener('input',showList);$('dest').addEventListener('focus',showList);
+$('dest').addEventListener('keydown',function(e){var n=listKeys.length;if(e.key==='ArrowDown'){e.preventDefault();if($('destList').classList.contains('hide'))showList();else{sel=Math.min(sel+1,n-1);markSel()}}else if(e.key==='ArrowUp'){e.preventDefault();sel=Math.max(sel-1,0);markSel()}else if(e.key==='Enter'){if(sel>=0&&listKeys[sel]){e.preventDefault();pick(listKeys[sel])}else if(n===1&&norm($('dest').value)){e.preventDefault();pick(listKeys[0])}else hideList()}else if(e.key==='Escape'){hideList()}});
+$('dest').addEventListener('blur',function(){var k=ekey($('dest').value);if(DEST[k]){$('dest').value=cname(k);onDest()}});
+$('destList').addEventListener('mousedown',function(e){var li=e.target.closest('li[data-k]');if(li){e.preventDefault();pick(li.dataset.k)}});
+document.addEventListener('click',function(e){if(!e.target.closest('.combo'))hideList()});
+var IOS=`On iPhone or iPad: tap the Share button in Safari, then choose “Add to Home Screen”.`,AND=`On Android: open the browser menu (⋮) and choose “Add to Home screen” or “Install app”.`;
+var I1={'Add to home screen':'Lisää aloitusnäyttöön','Open Gratuvo like an app, straight from your phone.':'Avaa Gratuvo kuin sovellus suoraan puhelimestasi.','Add':'Lisää','Close':'Sulje'};I1[IOS]='iPhonessa tai iPadissa: napauta Safarissa Jaa-painiketta ja valitse “Lisää Koti-valikkoon”.';I1[AND]='Androidissa: avaa selaimen valikko (⋮) ja valitse “Lisää aloitusnäyttöön” tai “Asenna sovellus”.';
+var I2={'Add to home screen':'Lägg till på hemskärmen','Open Gratuvo like an app, straight from your phone.':'Öppna Gratuvo som en app direkt från telefonen.','Add':'Lägg till','Close':'Stäng'};I2[IOS]='På iPhone eller iPad: tryck på Dela-knappen i Safari och välj “Lägg till på hemskärmen”.';I2[AND]='På Android: öppna webbläsarens meny (⋮) och välj “Lägg till på startskärmen” eller “Installera app”.';
+Object.assign(TR.fi,I1);Object.assign(TR.sv,I2);
+var dip=null,iMode='';
+function iText(){return tr(iMode==='ios'?IOS:AND)}
+function iRefresh(){var h=$('iHelp');if(!h.classList.contains('hide'))h.textContent=iText()}
+function iShow(){var ua=navigator.userAgent||'',mob=/Android|iPhone|iPad|iPod/i.test(ua)||(navigator.maxTouchPoints>1&&/Mac/.test(navigator.platform)),st=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone===true,x=false;try{x=sessionStorage.getItem('gv-ix')==='1'}catch(e){}if(mob&&!st&&!x)$('install').classList.remove('hide')}
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();dip=e});
+window.addEventListener('appinstalled',function(){$('install').classList.add('hide')});
+$('iX').addEventListener('click',function(){$('install').classList.add('hide');try{sessionStorage.setItem('gv-ix','1')}catch(e){}});
+$('iBtn').addEventListener('click',function(){if(dip){dip.prompt();dip.userChoice.then(function(){dip=null;$('install').classList.add('hide')});return}iMode=/iPhone|iPad|iPod|Macintosh/i.test(navigator.userAgent)?'ios':'and';var h=$('iHelp');h.classList.remove('hide');h.textContent=iText()});
+iShow();
 $('loc').addEventListener('click',function(){var tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}
-var m=[[/^America\/(New_York|Chicago|Denver|Los_Angeles|Phoenix|Anchorage|Juneau|Sitka|Nome|Yakutat|Metlakatla|Adak|Detroit|Boise|Menominee|Indiana|Kentucky|North_Dakota)|^Pacific\/Honolulu/,'United States'],[/^America\/(Toronto|Vancouver|Edmonton|Winnipeg|Halifax|St_Johns|Regina|Montreal|Moncton|Whitehorse|Yellowknife|Iqaluit|Glace_Bay|Goose_Bay|Dawson|Dawson_Creek|Fort_Nelson|Swift_Current|Rankin_Inlet|Resolute|Cambridge_Bay|Inuvik|Thunder_Bay|Nipigon|Pangnirtung|Rainy_River|Blanc-Sablon|Atikokan|Creston)/,'Canada'],[/^America\/(Mexico_City|Cancun|Tijuana|Monterrey|Merida|Chihuahua|Ciudad_Juarez|Mazatlan|Hermosillo|Matamoros|Ojinaga|Bahia_Banderas)/,'Mexico'],[/^Europe\/London/,'United Kingdom'],[/^Europe\/Paris/,'France'],[/^Europe\/Rome/,'Italy'],[/^(Europe\/Madrid|Atlantic\/Canary|Africa\/Ceuta)/,'Spain'],[/^Europe\/(Berlin|Busingen)/,'Germany'],[/^Europe\/Helsinki/,'Finland'],[/^Europe\/Stockholm/,'Sweden'],[/^Europe\/Oslo/,'Norway'],[/^Europe\/Copenhagen/,'Denmark'],[/^Europe\/Zurich/,'Switzerland'],[/^Asia\/Tokyo/,'Japan'],[/^Asia\/Bangkok/,'Thailand'],[/^(Europe|Asia)\/Istanbul/,'Turkey'],[/^Asia\/Dubai/,'United Arab Emirates'],[/^Australia\//,'Australia'],[/^Europe\/Amsterdam/,'Netherlands'],[/^(Europe\/Lisbon|Atlantic\/Madeira|Atlantic\/Azores)/,'Portugal'],[/^Europe\/Athens/,'Greece'],[/^Europe\/Vienna/,'Austria'],[/^Europe\/Dublin/,'Ireland'],[/^Europe\/Warsaw/,'Poland'],[/^Atlantic\/Reykjavik/,'Iceland'],[/^Pacific\/(Auckland|Chatham)/,'New Zealand'],[/^Asia\/Seoul/,'South Korea'],[/^Asia\/(Shanghai|Urumqi)/,'China'],[/^Asia\/Singapore/,'Singapore'],[/^Asia\/(Kolkata|Calcutta)/,'India'],[/^America\/(Sao_Paulo|Manaus|Fortaleza|Recife|Bahia|Belem|Cuiaba|Campo_Grande|Porto_Velho|Rio_Branco|Araguaina|Maceio|Noronha|Boa_Vista|Santarem|Eirunepe)/,'Brazil'],[/^Africa\/Johannesburg/,'South Africa']];
+var m=[[/^America\/(New_York|Chicago|Denver|Los_Angeles|Phoenix|Anchorage|Juneau|Sitka|Nome|Yakutat|Metlakatla|Adak|Detroit|Boise|Menominee|Indiana|Kentucky|North_Dakota)|^Pacific\/Honolulu/,'United States'],[/^America\/(Toronto|Vancouver|Edmonton|Winnipeg|Halifax|St_Johns|Regina|Montreal|Moncton|Whitehorse|Yellowknife|Iqaluit|Glace_Bay|Goose_Bay|Dawson|Dawson_Creek|Fort_Nelson|Swift_Current|Rankin_Inlet|Resolute|Cambridge_Bay|Inuvik|Thunder_Bay|Nipigon|Pangnirtung|Rainy_River|Blanc-Sablon|Atikokan|Creston)/,'Canada'],[/^America\/(Mexico_City|Cancun|Tijuana|Monterrey|Merida|Chihuahua|Ciudad_Juarez|Mazatlan|Hermosillo|Matamoros|Ojinaga|Bahia_Banderas)/,'Mexico'],[/^Europe\/London/,'United Kingdom'],[/^Europe\/Paris/,'France'],[/^Europe\/Rome/,'Italy'],[/^(Europe\/Madrid|Atlantic\/Canary|Africa\/Ceuta)/,'Spain'],[/^Europe\/(Berlin|Busingen)/,'Germany'],[/^Europe\/Helsinki/,'Finland'],[/^Europe\/Stockholm/,'Sweden'],[/^Europe\/Oslo/,'Norway'],[/^Europe\/Copenhagen/,'Denmark'],[/^Europe\/Zurich/,'Switzerland'],[/^Asia\/Tokyo/,'Japan'],[/^Asia\/Bangkok/,'Thailand'],[/^(Europe|Asia)\/Istanbul/,'Turkey'],[/^Asia\/Dubai/,'United Arab Emirates'],[/^Australia\//,'Australia'],[/^Europe\/Amsterdam/,'Netherlands'],[/^(Europe\/Lisbon|Atlantic\/Madeira|Atlantic\/Azores)/,'Portugal'],[/^Europe\/Athens/,'Greece'],[/^Europe\/Vienna/,'Austria'],[/^Europe\/Dublin/,'Ireland'],[/^Europe\/Warsaw/,'Poland'],[/^Atlantic\/Reykjavik/,'Iceland'],[/^Pacific\/(Auckland|Chatham)/,'New Zealand'],[/^Asia\/Seoul/,'South Korea'],[/^Asia\/(Shanghai|Urumqi)/,'China'],[/^Asia\/Singapore/,'Singapore'],[/^Asia\/(Kolkata|Calcutta)/,'India'],[/^America\/(Sao_Paulo|Manaus|Fortaleza|Recife|Bahia|Belem|Cuiaba|Campo_Grande|Porto_Velho|Rio_Branco|Araguaina|Maceio|Noronha|Boa_Vista|Santarem|Eirunepe)/,'Brazil'],[/^Africa\/Johannesburg/,'South Africa'],[/^Europe\/Prague/,'Czechia'],[/^Europe\/Budapest/,'Hungary'],[/^Europe\/Brussels/,'Belgium'],[/^Europe\/Bucharest/,'Romania'],[/^Europe\/Zagreb/,'Croatia'],[/^Europe\/Tallinn/,'Estonia'],[/^Europe\/Riga/,'Latvia'],[/^Europe\/Vilnius/,'Lithuania'],[/^Europe\/Bratislava/,'Slovakia'],[/^Europe\/Ljubljana/,'Slovenia'],[/^Europe\/Luxembourg/,'Luxembourg'],[/^Europe\/Malta/,'Malta']];
 var hit='';m.forEach(function(x){if(!hit&&x[0].test(tz))hit=x[1]});
 if(hit){$('dest').value=cname(hit);onDest();$('destNote').textContent=tr('Found %s from your device time zone.').replace('%s',cname(hit))+' '+$('destNote').textContent}
 else{$('destNote').textContent=(tz?tr('Your device time zone (%s) is not in my list.').replace('%s',tz):tr('Could not read your device time zone.'))+' '+tr('Type your destination instead.')}});
@@ -322,7 +384,7 @@ $("tax").addEventListener("input",calc);
 $("baseSeg").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;pre=b.dataset.b==="pre";$("taxRow").classList.toggle("hide",pre);$("baseNote").style.display=pre?"":"none";
   [].forEach.call($("baseSeg").children,function(x){x.setAttribute("aria-pressed",x===b)});calc()});
 $("pct").addEventListener("input",function(){pctTouched=true;calc()});
-$("rate").addEventListener("input",function(){ED[$("cur").value]=1;rates[$("cur").value]=parseFloat($("rate").value)||0;calc()});
+$("rate").addEventListener("input",function(){ED[$("cur").value]=1;rates[$("cur").value]=(parseFloat($("rate").value)||0)*(rates[HOME]||1);calc()});
 $("kind").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;kind=b.dataset.k;
   [].forEach.call($("kind").children,function(x){x.setAttribute("aria-pressed",x===b)});pctTouched=false;setPct();calc()});
 $("minus").addEventListener("click",function(){if(n>1){n--;setPct();calc()}});
@@ -330,6 +392,8 @@ $("plus").addEventListener("click",function(){if(n<50){n++;setPct();calc()}});
 $("range").addEventListener("click",function(e){var b=e.target.closest(".rg");if(!b)return;$("pct").value=b.dataset.p;pctTouched=true;calc()});
 syncRate();setPct();svcUi();calc();
 try{var sl=localStorage.getItem('gv-lang');if(sl&&TR[sl])L=sl}catch(e){}
+try{var sh=localStorage.getItem('gv-home');if(sh&&FX[sh])HOME=sh}catch(e){}
+Object.keys(FX).forEach(function(k){var o=document.createElement('option');o.value=k;o.textContent=k;$('home').appendChild(o)});$('home').value=HOME;$('home').addEventListener('change',function(){HOME=$('home').value;try{localStorage.setItem('gv-home',HOME)}catch(e){}syncRate();calc()});
 Object.assign(TR.fi,{'Latest ECB rate from':'Viimeisin EKP:n kurssi päivältä','You can type in a different rate if you prefer.':'Voit kirjoittaa toisen kurssin, jos haluat.'});Object.assign(TR.sv,{'Latest ECB rate from':'Senaste ECB-kursen från','You can type in a different rate if you prefer.':'Du kan skriva in en annan kurs om du vill.'});
 var LIVE='',ED={};
 function loadRates(){var urls=['https://api.frankfurter.dev/v1/latest?base=EUR','https://api.frankfurter.app/latest?from=EUR'];(function go(i){if(i>=urls.length)return;fetch(urls[i]).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(j){var r=j&&j.rates;if(!r||!r.USD)throw 0;Object.keys(r).forEach(function(k){if(FX[k]&&r[k]>0&&!ED[k])rates[k]=1/r[k]});if(FX.AED&&!ED.AED)rates.AED=(1/r.USD)/3.6725;LIVE=j.date||'today';syncRate();calc()}).catch(function(){go(i+1)})})(0)}
