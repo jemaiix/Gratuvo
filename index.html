@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gratuvo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700;800&display=swap">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%230f766e'/%3E%3Cstop offset='1' stop-color='%2334d399'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath d='M41 15 24 49' stroke='white' stroke-width='6' stroke-linecap='round'/%3E%3Ccircle cx='23' cy='23' r='7' fill='none' stroke='white' stroke-width='5'/%3E%3Ccircle cx='42' cy='42' r='8' fill='%23fbbf24'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#f3f6f4;--card:#fff;--ink:#16302b;--mute:#5d726d;--line:#d3ded9;--accent:#0f766e;--accent-ink:#fff;--soft:#e2f0ec;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1917;--card:#16251f;--ink:#e6f1ed;--mute:#93aaa3;--line:#2b403a;--accent:#2dd4bf;--accent-ink:#04201c;--soft:#1c3530}}
+:root[data-theme="dark"]{--bg:#0e1917;--card:#16251f;--ink:#e6f1ed;--mute:#93aaa3;--line:#2b403a;--accent:#2dd4bf;--accent-ink:#04201c;--soft:#1c3530}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 "Trebuchet MS","Segoe UI",system-ui,sans-serif}
+main{max-width:520px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.6rem;margin:0 0 4px;letter-spacing:-.01em}
+.sub{color:var(--mute);margin:0 0 18px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:14px}
+label,.lab{display:block;font-weight:600;font-size:.9rem;margin:0 0 6px}
+.field{margin-bottom:14px}.field:last-child{margin-bottom:0}
+input,select{width:100%;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px;min-height:46px}
+input:focus-visible,select:focus-visible,button:focus-visible{outline:3px solid var(--accent);outline-offset:1px}
+.row{display:flex;gap:10px}.row>*{flex:1;min-width:0}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden}
+.seg button{flex:1;border:0;background:var(--bg);color:var(--ink);font:inherit;padding:11px 6px;min-height:46px;cursor:pointer;border-right:1px solid var(--line)}
+.seg button:last-child{border-right:0}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);font-weight:700}
+.note{font-size:.85rem;color:var(--mute);margin:8px 0 0}
+.stepper{display:flex;align-items:center;gap:10px}
+.stepper button{width:46px;height:46px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font-size:1.4rem;cursor:pointer}
+.stepper output{min-width:40px;text-align:center;font-size:1.3rem;font-weight:700}
+.result{background:var(--accent);color:var(--accent-ink);border-radius:14px;padding:18px;margin-bottom:14px}
+.big{font-size:2.3rem;font-weight:800;line-height:1.1;letter-spacing:-.02em}
+.eur{opacity:.85;font-size:.95rem}
+.lines{margin-top:14px;border-top:1px solid color-mix(in srgb,var(--accent-ink) 30%,transparent);padding-top:10px}
+.line{display:flex;justify-content:space-between;gap:10px;padding:4px 0}
+.line b{text-align:right}
+.each{background:var(--soft);color:var(--ink);border-radius:10px;padding:12px;margin-top:12px}
+.each .big{font-size:1.6rem}
+.hide{display:none}
+.rnd{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.rb{flex:1;min-width:140px;font:inherit;line-height:1.3;color:var(--accent-ink);background:transparent;border:1.5px solid var(--accent-ink);border-radius:10px;padding:8px 10px;min-height:46px;cursor:pointer}
+.rg{display:flex;justify-content:space-between;gap:8px;width:100%;text-align:left;font:inherit;color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-bottom:8px;cursor:pointer;flex-wrap:wrap}
+.rg:last-child{margin-bottom:0}
+:root{--bg:#eef4f1;--card:rgba(255,255,255,.82);--ink:#10241f;--mute:#5b706a;--line:#d9e4df;--accent:#0d9488;--accent-ink:#fff;--soft:#e3f3ee;--grad:linear-gradient(135deg,#0b6b63,#10a37f 70%,#34d399);--shadow:0 12px 32px -14px rgba(15,70,60,.35)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#09130f;--card:rgba(18,32,27,.85);--ink:#e8f4ef;--mute:#8fa8a0;--line:#25382f;--accent:#34d399;--accent-ink:#052018;--soft:#173028;--grad:linear-gradient(135deg,#0a4f49,#0d7a60 70%,#18a37b);--shadow:0 12px 32px -14px rgba(0,0,0,.7)}}
+:root[data-theme="dark"]{--bg:#09130f;--card:rgba(18,32,27,.85);--ink:#e8f4ef;--mute:#8fa8a0;--line:#25382f;--accent:#34d399;--accent-ink:#052018;--soft:#173028;--grad:linear-gradient(135deg,#0a4f49,#0d7a60 70%,#18a37b);--shadow:0 12px 32px -14px rgba(0,0,0,.7)}
+body{font-family:"Plus Jakarta Sans","Avenir Next","Segoe UI",system-ui,sans-serif;background:radial-gradient(800px 380px at 50% -140px,color-mix(in srgb,var(--accent) 28%,transparent),transparent) no-repeat,var(--bg);min-height:100vh}
+main{padding-top:26px}
+.brand{display:flex;align-items:center;gap:14px;margin-bottom:22px}
+.brand svg{width:58px;height:58px;flex:none;border-radius:16px;box-shadow:0 10px 22px -8px rgba(13,148,136,.7)}
+.brand h1{margin:0;font-size:1.8rem;font-weight:800;letter-spacing:-.03em}
+.brand .sub{margin:2px 0 0;font-size:.95rem}
+.card{background:var(--card);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:22px;padding:20px;box-shadow:var(--shadow)}
+label,.lab{font-size:.72rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+input,select{border-radius:14px;border:1.5px solid var(--line);background:color-mix(in srgb,var(--bg) 60%,var(--card));font-weight:600;transition:border-color .15s,box-shadow .15s}
+input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 22%,transparent);outline:0}
+.seg{border-radius:14px;border:1.5px solid var(--line);padding:4px;gap:4px;background:color-mix(in srgb,var(--bg) 60%,var(--card))}
+.seg button{border:0;border-radius:10px;background:transparent;font-weight:700;min-height:42px;transition:background .15s}
+.seg button[aria-pressed="true"]{box-shadow:0 6px 14px -6px color-mix(in srgb,var(--accent) 80%,transparent)}
+.stepper button{border-radius:50%;width:48px;height:48px;border:1.5px solid var(--line);font-weight:700;transition:transform .1s}
+.stepper button:active{transform:scale(.92)}
+.rg{border-radius:14px;border:1.5px solid var(--line);transition:border-color .15s,transform .1s}
+.rg:hover{border-color:var(--accent)}.rg:active{transform:scale(.98)}
+.result{background:var(--grad);color:#fff;border-radius:26px;padding:24px;box-shadow:0 22px 40px -18px rgba(13,148,136,.75);position:relative;overflow:hidden}
+.result::after{content:"";position:absolute;right:-50px;top:-50px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.12)}
+.result .lab{color:rgba(255,255,255,.8)}
+.result .big{font-size:2.8rem;font-weight:800;letter-spacing:-.03em}
+.eur{opacity:.9;font-weight:600}
+.lines{border-top-color:rgba(255,255,255,.28)}
+.each{background:rgba(255,255,255,.16);color:#fff;border-radius:18px}
+.each .big{font-size:1.8rem}
+.rb{color:#fff;border-color:rgba(255,255,255,.65);border-radius:14px;font-weight:700;transition:background .15s}
+.rb:hover{background:rgba(255,255,255,.18)}
+.note{line-height:1.5}
+.sharebtn{margin-left:auto;flex:none;display:flex;gap:6px;align-items:center;font:inherit;font-weight:700;font-size:.9rem;color:var(--ink);background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:9px 13px;min-height:44px;cursor:pointer;box-shadow:var(--shadow)}
+.sharebtn:active{transform:scale(.95)}
+.destrow{display:flex;gap:8px}.destrow input{flex:1;min-width:0}
+.locbtn{flex:none;width:50px;min-height:46px;border-radius:14px;border:0;background:var(--accent);color:var(--accent-ink);cursor:pointer;display:grid;place-items:center;box-shadow:0 8px 16px -8px color-mix(in srgb,var(--accent) 80%,transparent)}
+.locbtn:active{transform:scale(.94)}
+</style>
+</head>
+<body>
+<main>
+<header class="brand">
+  <svg viewBox="0 0 64 64" role="img" aria-label="Gratuvo logo"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0f766e"/><stop offset="1" stop-color="#34d399"/></linearGradient></defs><rect width="64" height="64" rx="16" fill="url(#lg)"/><path d="M41 15 24 49" stroke="#fff" stroke-width="6" stroke-linecap="round"/><circle cx="23" cy="23" r="7" fill="none" stroke="#fff" stroke-width="5"/><circle cx="42" cy="42" r="8" fill="#fbbf24"/><circle cx="42" cy="42" r="4" fill="none" stroke="#b45309" stroke-width="1.6"/></svg>
+  <div><h1>Gratuvo</h1><p class="sub">Tip right, anywhere you travel.</p></div>
+  <button type="button" id="share" class="sharebtn" aria-label="Share this app"><svg viewBox='0 0 24 24' width='18' height='18' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='18' cy='5' r='3'/><circle cx='6' cy='12' r='3'/><circle cx='18' cy='19' r='3'/><path d='M8.6 13.5l6.8 4M15.4 6.5l-6.8 4'/></svg><span id="shareTxt">Share</span></button>
+</header>
+
+<section class="card">
+  <div class="field">
+    <label for="dest">Where are you staying?</label>
+    <div class="destrow"><input id="dest" list="places" placeholder="Type or choose a country" autocomplete="off"><button type="button" id="loc" class="locbtn" aria-label="Find my location" title="Find my location"><svg viewBox='0 0 24 24' width='22' height='22' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round'><circle cx='12' cy='12' r='3'/><circle cx='12' cy='12' r='8'/><path d='M12 1v3M12 20v3M1 12h3M20 12h3'/></svg></button></div>
+    <datalist id="places"></datalist>
+    <p class="note" id="destNote">Choose a country for local tipping norms, or type anything and use the default rate.</p>
+  </div>
+  <div class="field">
+    <label for="svc">What are you tipping for?</label><select id="svc"></select><p class="note" id="svcNote"></p>
+  </div>
+  <div class="field" id="kindRow">
+    <div class="lab">Food, drinks or both?</div>
+    <div class="seg" id="kind">
+      <button type="button" data-k="food" aria-pressed="true">Food</button>
+      <button type="button" data-k="drinks" aria-pressed="false">Drinks</button>
+      <button type="button" data-k="both" aria-pressed="false">Both</button>
+    </div>
+  </div>
+  <div class="field row">
+    <div><label for="cur">Currency</label><select id="cur"></select></div>
+    <div><label for="bill">Bill total (before tax)</label><input id="bill" type="number" inputmode="decimal" min="0" step="any" placeholder="0.00"></div>
+  </div>
+  <div class="field">
+    <div class="seg" id="baseSeg">
+      <button type="button" data-b="pre" aria-pressed="true">Tip before tax</button>
+      <button type="button" data-b="post" aria-pressed="false">Tip after tax</button>
+    </div>
+    <p class="note" id="baseNote">Recommended: enter the bill before tax (the subtotal on your receipt) in Bill total. This is the traditional etiquette in the US and Canada. Where tax is already included in prices, just enter the total.</p>
+  </div>
+  <div class="field hide" id="taxRow">
+    <label for="tax">Tax on the bill</label>
+    <input id="tax" type="number" inputmode="decimal" min="0" step="any" placeholder="0.00">
+    <p class="note">The tip is calculated on the bill plus this tax. Tipping on the full total is also common and a bit more generous.</p>
+  </div>
+  <div class="field row">
+    <div><label for="pct">Tip %</label><input id="pct" type="number" inputmode="decimal" min="0" step="0.5"></div>
+    <div><div class="lab">Party size</div>
+      <div class="stepper"><button type="button" id="minus" aria-label="Fewer people">−</button><output id="n">2</output><button type="button" id="plus" aria-label="More people">+</button></div>
+    </div>
+  </div>
+  <div class="field"><div class="lab">Tip range for this place</div><div id="range"></div><p class="note">Tap a row to use that percentage.</p></div>
+  <p class="note">Tip % fills in from the destination, and you can change it. For "Both", the food and drinks rates are averaged.</p>
+</section>
+
+<section class="result" aria-live="polite">
+  <div class="lab">Suggested tip</div>
+  <div class="big" id="tip">0.00</div>
+  <div class="eur" id="tipEur"></div>
+  <div class="rnd" id="rnd"></div>
+  <div class="lines">
+    <div class="line"><span>Bill</span><b id="lBill">0.00</b></div>
+    <div class="line"><span>Tip is calculated on</span><b id="lBase">0.00</b></div>
+    <div class="line"><span>Total with tip</span><b id="lTot">0.00</b></div>
+  </div>
+  <div class="each">
+    <div class="lab">Tip per person (<span id="nTxt">2</span>)</div>
+    <div class="big" id="each">0.00</div>
+    <div class="eur" id="eachEur"></div>
+  </div>
+</section>
+
+<section class="card hide" id="flat">
+  <div class="lab">Flat-amount tips in the US (USD)</div>
+  <div class="line"><span>Hotel housekeeping</span><b>$2–5 per night</b></div>
+  <div class="line"><span>Bellhop or porter</span><b>$1–3 per bag</b></div>
+  <div class="line"><span>Valet, when car returned</span><b>$2–5</b></div>
+  <div class="line"><span>Concierge, for special help</span><b>$5–20</b></div>
+  <div class="line"><span>Airport shuttle driver</span><b>$2–5</b></div>
+  <p class="note">Leave housekeeping tips daily, since the staff can change during your stay.</p>
+</section>
+
+<section class="card" id="fxCard">
+  <label for="rate">Exchange rate: 1 <span id="fxCur">USD</span> in EUR</label>
+  <input id="rate" type="number" inputmode="decimal" min="0" step="any">
+  <p class="note"><span id="asof"></span>This page cannot fetch live rates, so check today's rate and type it in for an exact euro amount.</p>
+</section>
+</main>
+
+<script>
+// [food low,typ,high], [drinks low,typ,high], note, currency
+var DEST={
+"United States":[[15,20,25],[15,18,20],"Tipping is expected and the norm is about the same in every state: 18–20% at restaurants, $1–2 per drink at a bar.","USD"],
+"Canada":[[15,18,20],[10,15,20],"Similar to the US, 15–20% is normal.","CAD"],
+"Mexico":[[10,12,15],[10,10,15],"10–15% is customary. Check if service is already added.","MXN"],
+"United Kingdom":[[0,10,12.5],[0,5,10],"10–12.5% is common. Check for a service charge on the bill.","GBP"],
+"France":[[0,5,10],[0,0,5],"Service is included by law. Round up or leave a few euros.","EUR"],
+"Italy":[[0,5,10],[0,0,5],"A cover charge is often included. Rounding up is fine.","EUR"],
+"Spain":[[0,5,10],[0,0,5],"Tipping is modest. Rounding up is enough.","EUR"],
+"Germany":[[5,8,10],[0,5,10],"Round up or add 5–10%. Tell the server the total when paying.","EUR"],
+"Finland":[[0,0,5],[0,0,5],"Service is included and tipping is not expected. Rounding up is a kind gesture.","EUR"],
+"Sweden":[[0,8,10],[0,5,10],"Not required. Rounding up or 5–10% for good service.","SEK"],
+"Norway":[[0,8,10],[0,5,10],"Not required. 5–10% for good service.","NOK"],
+"Denmark":[[0,5,10],[0,0,5],"Service is included. Rounding up is plenty.","DKK"],
+"Switzerland":[[0,5,10],[0,0,5],"Service is included. Round up for good service.","CHF"],
+"Japan":[[0,0,0],[0,0,0],"Tipping is not customary and can cause confusion.","JPY"],
+"Thailand":[[5,8,10],[0,5,10],"Small tips are appreciated, especially if no service charge.","THB"],
+"Turkey":[[5,10,15],[5,7,10],"10% is typical if no service charge is added.","TRY"],
+"United Arab Emirates":[[10,12,15],[5,10,15],"10–15% unless a service charge is already included.","AED"],
+"Australia":[[0,5,10],[0,0,5],"Not expected. 5–10% for great service.","AUD"]
+};
+var DEF=[[5,10,15],[5,10,15],"No local data for this place, so a general 5–15% range is used. Adjust it as needed."];
+// EUR per 1 unit, as-of date (ECB reference rates; USD and AED checked 13 Oct 2026)
+var FX={EUR:[1,""],USD:[0.892,"13 Oct 2026"],AED:[0.2429,"13 Oct 2026"],GBP:[1.1507,"16 Feb 2026"],CAD:[0.619,"16 Feb 2026"],AUD:[0.5977,"16 Feb 2026"],CHF:[1.0954,"16 Feb 2026"],SEK:[0.0942,"16 Feb 2026"],NOK:[0.0888,"16 Feb 2026"],DKK:[0.1339,"16 Feb 2026"],JPY:[0.0055,"16 Feb 2026"],THB:[0.02713,"16 Feb 2026"],MXN:[0.04917,"16 Feb 2026"],TRY:[0.0193,"16 Feb 2026"]};
+var $=function(i){return document.getElementById(i)};
+var kind="food",n=2,rates={},pctTouched=false;
+Object.keys(FX).forEach(function(k){rates[k]=FX[k][0]});
+
+Object.keys(DEST).forEach(function(k){var o=document.createElement("option");o.value=k;$("places").appendChild(o)});
+Object.keys(FX).forEach(function(c){var o=document.createElement("option");o.value=c;o.textContent=c;$("cur").appendChild(o)});
+$("cur").value="EUR";
+
+function info(){var d=DEST[$("dest").value.trim()];return d||null}
+var SVC={sit:["Sit-down restaurant or bar"],fine:["Fine dining",[20,22,25],1],counter:["Counter service (sandwich, coffee)",[0,5,10,15],.5],takeout:["Takeout",[0,5,10],.3],delivery:["Food delivery",[15,18,20],.6],taxi:["Taxi or rideshare",[10,15,20],.6],tour:["Tour guide",[10,15,20],.8],spa:["Hair, spa or massage",[15,20,25],1]};
+var US_NOTES={fine:"Fine dining: 20–25%. Large parties often get a service charge added, so check the bill first.",counter:"Counter service: tipping is optional. A screen may suggest 15–20%, but 0–10% is common for a simple order like a sandwich. Leave more for big or complicated orders.",takeout:"Takeout: optional. 0–10%, more for large or complicated orders.",delivery:"Delivery: 15–20%, with at least $3–5 for small orders. Add more in bad weather or for long distances.",taxi:"Taxi or rideshare: 10–20%. Round up for taxis, and tip for help with luggage.",tour:"Tour guides: 10–20% of the tour price, or about $5–10 per person for a short tour.",spa:"Hair, spa and massage: 15–25%, given directly to the person who served you."};
+function base3(){var d=info()||DEF,f=d[0],r=d[1];return kind==="food"?f:kind==="drinks"?r:f.map(function(v,i){return (v+r[i])/2})}
+function rng(){if(svc==="sit")return base3();var s=SVC[svc];if($("dest").value.trim()==="United States")return s[1];var f=(info()||DEF)[0];return f.map(function(v,i){return i===0&&s[2]<1?0:Math.round(v*s[2]*2)/2})}
+function svcUi(){var us=$("dest").value.trim()==="United States";$("kindRow").style.display=svc==="sit"?"":"none";$("svcNote").textContent=svc==="sit"?"":(us?US_NOTES[svc]:"Scaled from this country's restaurant norms, so treat it as a rough guide.");$("flat").classList.toggle("hide",!us)}
+function suggestPct(){return rng()[1]}
+function fmt(v,c){try{return new Intl.NumberFormat(undefined,{style:"currency",currency:c}).format(v)}catch(e){return v.toFixed(2)+" "+c}}
+function setPct(){if(!pctTouched){$("pct").value=suggestPct()}}
+
+function calc(){
+  var c=$("cur").value,bill=parseFloat($("bill").value)||0,pct=parseFloat($("pct").value)||0;
+  var tax=pre?0:(parseFloat($("tax").value)||0),base=bill+tax;
+  var tip=base*pct/100,each=tip/n,r=rates[c]||0;
+  $("lBase").textContent=fmt(base,c);
+  var step=STEP[c]||1,up=Math.ceil(tip/step-1e-9)*step,dn=Math.floor(tip/step+1e-9)*step,rh="";
+  function rb(x){var p=Number((x/base*100).toFixed(4));return '<button type="button" class="rb" data-p="'+p+'">Round '+(x<tip?'down':'up')+' to '+fmt(x,c)+'<br><small>'+p.toFixed(1)+'%</small></button>'}
+  if(bill>0&&base>0){if(Math.abs(tip-Math.round(tip/step)*step)>step*0.01){if(dn>0)rh+=rb(dn);rh+=rb(up)}else{rh='<span class="eur">The tip is already a round amount.</span>'}}
+  $("rnd").innerHTML=rh;
+  $("tip").textContent=fmt(tip,c);$("lBill").textContent=fmt(bill,c);$("lTot").textContent=fmt(bill+tax+tip,c);
+  $("each").textContent=fmt(each,c);$("n").textContent=n;$("nTxt").textContent=n;
+  var show=c!=="EUR";
+  $("tipEur").textContent=show?"≈ "+fmt(tip*r,"EUR"):"";
+  $("eachEur").textContent=show?"≈ "+fmt(each*r,"EUR")+" each":"";
+  $("fxCard").classList.toggle("hide",!show);
+  $("fxCur").textContent=c;$("asof").textContent=FX[c][1]?"Starting rate is from "+FX[c][1]+". ":"";
+  var R=rng(),names=R.length===4?["Skip","Low","Typical","High"]:["Low","Typical","High"],h="";
+  R.forEach(function(p,i){var t=base*p/100;h+='<button type="button" class="rg" data-p="'+p+'"><span><b>'+names[i]+'</b> '+p+'%</span><span>'+fmt(t,c)+' · '+fmt(t/n,c)+' each'+(show?' · ≈ '+fmt(t/n*r,"EUR"):'')+'</span></button>'});
+  $("range").innerHTML=h;
+}
+function onDest(){
+  var d=info();pctTouched=false;
+  $("destNote").textContent=d?d[2]:($("dest").value.trim()?DEF[2]:"Choose a country for local tipping norms, or type anything and use the default rate.");
+  if(d&&d[3]){$("cur").value=d[3];syncRate()}
+  setPct();svcUi();calc();
+}
+function syncRate(){$("rate").value=rates[$("cur").value]}
+
+$("dest").addEventListener("input",onDest);
+$("cur").addEventListener("change",function(){syncRate();calc()});
+var pre=true,svc="sit",STEP={JPY:100,THB:10,MXN:10,TRY:10,SEK:5,NOK:5,DKK:5};
+$("rnd").addEventListener("click",function(e){var b=e.target.closest(".rb");if(!b)return;$("pct").value=b.dataset.p;pctTouched=true;calc()});
+Object.keys(SVC).forEach(function(k){var o=document.createElement("option");o.value=k;o.textContent=SVC[k][0];$("svc").appendChild(o)});
+$("svc").addEventListener("change",function(){svc=$("svc").value;pctTouched=false;setPct();svcUi();calc()});
+$('share').addEventListener('click',function(){var url=location.href.split('#')[0],t=$('shareTxt'),old=t.textContent,data={title:'Gratuvo',text:'A tipping calculator for travelers: local tipping norms, split the tip and convert currency.',url:url};
+function done(s){t.textContent=s;setTimeout(function(){t.textContent=old},2200)}
+function copy(){try{navigator.clipboard.writeText(url).then(function(){done('Link copied')},function(){window.prompt('Copy this link',url)})}catch(e){window.prompt('Copy this link',url)}}
+if(navigator.share){navigator.share(data).catch(function(e){if(!e||e.name!=='AbortError')copy()})}else{copy()}});
+$('loc').addEventListener('click',function(){var tz='';try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}
+var m=[[/^America\/(New_York|Chicago|Denver|Los_Angeles|Phoenix|Anchorage|Juneau|Sitka|Nome|Yakutat|Metlakatla|Adak|Detroit|Boise|Menominee|Indiana|Kentucky|North_Dakota)|^Pacific\/Honolulu/,'United States'],[/^America\/(Toronto|Vancouver|Edmonton|Winnipeg|Halifax|St_Johns|Regina|Montreal|Moncton|Whitehorse|Yellowknife|Iqaluit|Glace_Bay|Goose_Bay|Dawson|Dawson_Creek|Fort_Nelson|Swift_Current|Rankin_Inlet|Resolute|Cambridge_Bay|Inuvik|Thunder_Bay|Nipigon|Pangnirtung|Rainy_River|Blanc-Sablon|Atikokan|Creston)/,'Canada'],[/^America\/(Mexico_City|Cancun|Tijuana|Monterrey|Merida|Chihuahua|Ciudad_Juarez|Mazatlan|Hermosillo|Matamoros|Ojinaga|Bahia_Banderas)/,'Mexico'],[/^Europe\/London/,'United Kingdom'],[/^Europe\/Paris/,'France'],[/^Europe\/Rome/,'Italy'],[/^(Europe\/Madrid|Atlantic\/Canary|Africa\/Ceuta)/,'Spain'],[/^Europe\/(Berlin|Busingen)/,'Germany'],[/^Europe\/Helsinki/,'Finland'],[/^Europe\/Stockholm/,'Sweden'],[/^Europe\/Oslo/,'Norway'],[/^Europe\/Copenhagen/,'Denmark'],[/^Europe\/Zurich/,'Switzerland'],[/^Asia\/Tokyo/,'Japan'],[/^Asia\/Bangkok/,'Thailand'],[/^(Europe|Asia)\/Istanbul/,'Turkey'],[/^Asia\/Dubai/,'United Arab Emirates'],[/^Australia\//,'Australia']];
+var hit='';m.forEach(function(x){if(!hit&&x[0].test(tz))hit=x[1]});
+if(hit){$('dest').value=hit;onDest();$('destNote').textContent='Found '+hit+' from your device time zone. '+$('destNote').textContent}
+else{$('destNote').textContent=(tz?'Your device time zone ('+tz+') is not in my list.':'Could not read your device time zone.')+' Type your destination instead.'}});
+$("bill").addEventListener("input",calc);
+$("tax").addEventListener("input",calc);
+$("baseSeg").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;pre=b.dataset.b==="pre";$("taxRow").classList.toggle("hide",pre);$("baseNote").style.display=pre?"":"none";
+  [].forEach.call($("baseSeg").children,function(x){x.setAttribute("aria-pressed",x===b)});calc()});
+$("pct").addEventListener("input",function(){pctTouched=true;calc()});
+$("rate").addEventListener("input",function(){rates[$("cur").value]=parseFloat($("rate").value)||0;calc()});
+$("kind").addEventListener("click",function(e){var b=e.target.closest("button");if(!b)return;kind=b.dataset.k;
+  [].forEach.call($("kind").children,function(x){x.setAttribute("aria-pressed",x===b)});pctTouched=false;setPct();calc()});
+$("minus").addEventListener("click",function(){if(n>1){n--;calc()}});
+$("plus").addEventListener("click",function(){if(n<50){n++;calc()}});
+$("range").addEventListener("click",function(e){var b=e.target.closest(".rg");if(!b)return;$("pct").value=b.dataset.p;pctTouched=true;calc()});
+syncRate();setPct();svcUi();calc();
+</script>
+</body>
+</html>
