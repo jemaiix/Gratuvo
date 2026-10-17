@@ -94,6 +94,7 @@ input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px color-m
 @media(max-width:430px){.sharebtn span{display:none}.sharebtn{padding:9px 11px}}
 .alert.strong{background:color-mix(in srgb,#ef4444 14%,var(--card));border-color:color-mix(in srgb,#ef4444 60%,transparent)}
 #rudeNote{margin:10px 0 0}
+#lTot{white-space:pre-line}
 .install{margin-bottom:14px}.irow{display:flex;align-items:center;gap:12px}.irow svg{flex:none;width:40px;height:40px}.irow b{display:block}.irow p{margin:2px 0 0}.irow>div{flex:1;min-width:0}
 .ibtn{flex:none;border:0;background:var(--accent);color:var(--accent-ink);font:inherit;font-weight:700;border-radius:12px;padding:10px 14px;min-height:42px;cursor:pointer}
 .ix{flex:none;background:transparent;border:0;color:var(--mute);font-size:1.5rem;line-height:1;cursor:pointer;padding:6px}
@@ -362,7 +363,7 @@ function calc(){
   $("rnd").innerHTML=rh;
   var bg=big();$('bigNote').classList.toggle('hide',!bg);$('bigNote').textContent=bg?((LN[L]&&LN[L][ekey($('dest').value)])||bg[2]):'';
   var wk=ekey($('dest').value),wl=STRONG.indexOf(wk)>=0?2:SOFT.indexOf(wk)>=0?1:0,rn=$('rudeNote');rn.classList.toggle('hide',!wl);rn.classList.toggle('strong',wl===2);rn.textContent=wl?(wl===2?'⚠ ':'')+tr(wl===2?WS:WF).replace('%s',cname(wk)):'';if(typeof iRefresh==='function')iRefresh();if(typeof syncSplit==='function')syncSplit();
-  $("tip").textContent=fmt(tip,c);$("lBill").textContent=fmt(bill,c);$("lTot").textContent=fmt(bill+tax+tip,c);
+  $("tip").textContent=fmt(tip,c);$("lBill").textContent=fmt(bill,c);$("lTot").textContent=fmt(bill+tax+tip,c)+(c!==HOME?"\n≈ "+fmt((bill+tax+tip)*r,HOME):"");
   $("each").textContent=fmt(each,c);$("n").textContent=n;$("nTxt").textContent=n;
   var show=c!==HOME;
   $("tipEur").textContent=show?"≈ "+fmt(tip*r,HOME):"";
